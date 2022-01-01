@@ -13,15 +13,29 @@ func TestHelloFunc (t *testing.T) {
 
 	t.Run("Test without name", func (t *testing.T) {
 		want := "Hello, World"
-		got := Hello("")
+		got := Hello("", "")
 
 		assertEqualString(t, got, want)
 	})
 	
 	t.Run("Test with name as John", func (t *testing.T) {
-		want := "Hello, World"
-		got := Hello("John")
+		want := "Hello, John"
+		got := Hello("John", "")
 		
+		assertEqualString(t, got, want)
+	})
+
+	t.Run("Test with language as Spanish 1", func (t *testing.T) {
+		want := "Hola, John"
+		got := Hello("John", "Spanish")
+
+		assertEqualString(t, got, want)
+	})
+
+	t.Run("Test with language as Spanish 2", func (t *testing.T) {
+		want := "Hola, John"
+		got := Hello("John", "Spanish")
+
 		assertEqualString(t, got, want)
 	})
 }
