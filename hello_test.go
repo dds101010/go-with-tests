@@ -38,4 +38,11 @@ func TestHelloFunc (t *testing.T) {
 
 		assertEqualString(t, got, want)
 	})
+
+	t.Run("Test with language as French", func (t *testing.T) {
+		want := "Bonjour, Kate"
+		got := Hello("Kate", "French")
+
+		assertEqualString(t, got, want)
+	})
 }
