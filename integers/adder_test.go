@@ -2,8 +2,8 @@ package integers
 
 import "testing"
 
-func TestAdderFunc (t *testing.T) {
-	t.Run("Regular Sum", func (t *testing.T) {
+func TestAdderFunc(t *testing.T) {
+	t.Run("Regular Sum", func(t *testing.T) {
 		want := 42
 		got := Add(40, 2)
 
