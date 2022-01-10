@@ -4,3 +4,6 @@ build:
 	go build ./...
 fmt:
 	go fmt ./...
+commit:
+	git add .
+	git commit
