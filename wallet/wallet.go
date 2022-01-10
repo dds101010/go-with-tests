@@ -1,9 +1,19 @@
 package wallet
 
+import "fmt"
+
+type Bitcoin int
+
+// Stringer interface in fmt
+// lets you define how your type is printed when used with the %s format string in prints
+func (b Bitcoin) String() string {
+	return fmt.Sprintf("%d BTC", b)
+}
+
 // In Go if a symbol (variables, types, functions et al) starts with a
 // lowercase symbol then it is private outside the package it's defined in.
 type Wallet struct {
-	balance int
+	balance Bitcoin
 }
 
 // when you call a function or a method the arguments are copied
@@ -12,10 +22,10 @@ type Wallet struct {
 // 	w.balance += amount
 // }
 
-func (w *Wallet) Deposit(amount int) {
+func (w *Wallet) Deposit(amount Bitcoin) {
 	w.balance += amount
 }
 
-func (w *Wallet) Balance() int {
+func (w *Wallet) Balance() Bitcoin {
 	return w.balance
 }
