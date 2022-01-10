@@ -7,3 +7,5 @@ fmt:
 commit:
 	git add .
 	git commit
+lint:
+	errcheck ./...
