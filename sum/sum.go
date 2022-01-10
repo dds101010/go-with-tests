@@ -1,5 +1,17 @@
 package sum
 
+// https://go.dev/blog/slices-intro
+/**
+* Slicing does not copy the slice's data. It creates a new slice
+* value that points to the original array. This makes slice operations
+* as efficient as manipulating array indices. Therefore, modifying the
+* elements (not the slice itself) of a re-slice modifies the elements
+* of the original slice
+*
+* To increase the capacity of a slice one must create a new, larger slice
+* and copy the contents of the original slice into it.
+ */
+
 /**
 * An interesting property of arrays is that the size is encoded in its type.
 * If you try to pass an [4]int into a function that expects [5]int, it won't compile.

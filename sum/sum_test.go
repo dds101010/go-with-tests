@@ -1,6 +1,7 @@
 package sum
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 )
@@ -64,4 +65,35 @@ func TestSliceTail(t *testing.T) {
 
 		testSumInt(t, slices, got, want)
 	})
+}
+
+func TestSliceInternals1(t *testing.T) {
+	// slice "a" with len = 1 million
+	a := make([]int, 1e6)
+
+	// even though "b" len = 2, it points to the same underlying array "a" points to
+	b := a[:2]
+
+	// create a copy of the slice so "a" can be garbage collected
+	c := make([]int, len(b))
+	copy(c, b)
+	fmt.Println(c)
+}
+
+func TestSliceInternals2(t *testing.T) {
+	x := [3]string{"Dwight", "Angela", "Jimothy"}
+
+	// slice "y" points to the underlying array "x"
+	y := x[:]
+
+	z := make([]string, len(x))
+	// slice "z" is a copy of the slice created from array "x"
+	copy(z, x[:])
+
+	// the value at index 1 is now "Robert" for both "y" and "x"
+	y[1] = "Robert"
+
+	fmt.Printf("x - %T %v\n", x, x)
+	fmt.Printf("y - %T %v\n", y, y)
+	fmt.Printf("z - %T %v\n", z, z)
 }
