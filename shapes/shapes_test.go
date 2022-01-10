@@ -9,7 +9,8 @@ func checkArea(t testing.TB, shape Shape, want float64) {
 	got := shape.Area()
 	if got != want {
 		// Use of g will print a more precise decimal number in the error message
-		t.Errorf("got %g want %g", got, want)
+		// The %#v format string will print out our struct with the values in its field
+		t.Errorf("%#v got %g want %g", shape, got, want)
 	}
 }
 
@@ -25,13 +26,17 @@ func TestPerimeter(t *testing.T) {
 }
 
 func TestArea(t *testing.T) {
-	t.Run("rectangles", func(t *testing.T) {
-		rectangle := Rectangle{10.0, 20.0}
-		checkArea(t, rectangle, 200.0)
-	})
+	// anonymous struct
+	tests := []struct {
+		shape Shape
+		want  float64
+	}{
+		{shape: Rectangle{Width: 12, Height: 6}, want: 72},
+		{shape: Circle{Radius: 10}, want: 314.1592653589793},
+		{shape: Triangle{Base: 12, Height: 6}, want: 36.0},
+	}
 
-	t.Run("circles", func(t *testing.T) {
-		circle := Circle{10}
-		checkArea(t, circle, 314.1592653589793)
-	})
+	for _, tt := range tests {
+		checkArea(t, tt.shape, tt.want)
+	}
 }
