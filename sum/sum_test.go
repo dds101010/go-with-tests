@@ -1,6 +1,7 @@
 package sum
 
 import (
+	"encoding/json"
 	"fmt"
 	"reflect"
 	"testing"
@@ -96,4 +97,37 @@ func TestSliceInternals2(t *testing.T) {
 	fmt.Printf("x - %T %v\n", x, x)
 	fmt.Printf("y - %T %v\n", y, y)
 	fmt.Printf("z - %T %v\n", z, z)
+}
+
+func TestUnboundedSlices1(t *testing.T) {
+	slice := make([]int, 5)
+	slice = append(slice, 1)
+	slice = append(slice, 2)
+	slice = append(slice, 3)
+	slice = append(slice, 4)
+	slice = append(slice, 5)
+
+	want := [...]int{0, 0, 0, 0, 0, 1, 2, 3, 4, 5}
+
+	gotString, _ := json.Marshal(slice)
+	wantString, _ := json.Marshal(want)
+
+	if !reflect.DeepEqual(gotString, wantString) {
+		t.Errorf("got: %v, want: %v", slice, want)
+	}
+}
+
+func TestUnboundedSlices2(t *testing.T) {
+	slice := []int{} // may be equivalent of make([]int, 0)
+	slice = append(slice, 1)
+	slice = append(slice, 2)
+
+	want := [...]int{1, 2}
+
+	gotString, _ := json.Marshal(slice)
+	wantString, _ := json.Marshal(want)
+
+	if !reflect.DeepEqual(gotString, wantString) {
+		t.Errorf("got: %v, want: %v", slice, want)
+	}
 }
